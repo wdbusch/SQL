@@ -1,0 +1,45 @@
+-- create store database
+
+CREATE TABLE bike_store
+(
+  id INTEGER PRIMARY KEY,
+  company TEXT,
+  bike_name TEXT,
+  type TEXT
+  ebike TEXT,
+  price INTEGER
+);
+INSERT INTO bike_store VALUES (1, "Trek", "Domane+ALR", "race", "yes", 1200);
+INSERT INTO bike_store VALUES (2, "Trek", "E-Caliber 9.6", "mountain", "yes", 6600);
+INSERT INTO bike_store VALUES (3, "Gazelle Bikes", "Arroyo C7 HMB Elite", "road", "yes", 3300);
+INSERT INTO bike_store VALUES (4, "Norco", "Charger VLT", "mountain", "yes", 4000);
+INSERT INTO bike_store VALUES (5, "Trek", "Allant+ 8S","road", "yes", 4300);
+INSERT INTO bike_store VALUES (6, "Trek", "Verve+ 3 Lowstep", "road", "yes", 3300);
+INSERT INTO bike_store VALUES (7, "WeThePeople", "Arcade", "BMX", "no", 460);
+INSERT INTO bike_store VALUES (8, "Haro", "Annex24", "BMX", "no", 490);
+INSERT INTO bike_store VALUES (9, "WeTHEPeople", "Reason", "BMX", "no", 600);
+INSERT INTO bike_store VALUES (10, "Stolen", "Max 29", "freestyle", "no", 650);
+INSERT INTO bike_store VALUES (11, "Strider", "Sport 12 Balance Bike", "kids", "no", 130);
+INSERT INTO bike_store VALUES (12, "Norco", "Runner 10", "kids", "no", 219);
+INSERT INTO bike_store VALUES (13, "Electra", "Sprocket 1 - 16-inch", "kids", "no", 365);
+INSERT INTO bike_store VALUES (14, "Haro", "Flightline 20+", "kids", "no", 430);
+INSERT INTO bike_store VALUES (15, "Trek", "Roscoe 24", "kids", "no", 550);
+
+-- display database
+SELECT * FROM bike_store
+
+-- average price e-bikes
+SELECT AVG(price) "avg e-bike price"
+FROM bike_store
+where ebike="yes"; 
+
+-- sum of non-ebikes
+SELECT COUNT(ebike) "amount of non-ebikes"
+FROM bike_store
+WHERE ebike="no";
+
+-- what are the 5 cheapest items?
+SELECT company, bike_name, price
+FROM bike_store
+ORDER BY price
+LIMIT 5;
