@@ -31,7 +31,7 @@ SELECT * FROM bike_store
 -- average price e-bikes
 SELECT AVG(price) "avg e-bike price"
 FROM bike_store
-where ebike="yes"; 
+WHERE ebike="yes"; 
 
 -- sum of non-ebikes
 SELECT COUNT(ebike) "amount of non-ebikes"
