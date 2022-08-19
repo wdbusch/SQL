@@ -1389,7 +1389,7 @@ SELECT team, ROUND( AVG(Height_CM), 2) AS AVG_Height FROM players
     ;
 
 -- display player count per position
-SELECT position, COUNT (position) AS players FROM players
+SELECT position, COUNT (*) AS players FROM players
     GROUP BY position
     ORDER BY players DESC
     ;
