@@ -1,0 +1,69 @@
+/* Create table about the people and what they do here */
+
+CREATE TABLE celebrities (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    age INTEGER,
+    occupation TEXT
+    );
+
+INSERT INTO celebrities (fullname, age, occupation) VALUES ('Dwayne Johnson', 50, 'actor');
+INSERT INTO celebrities (fullname, age, occupation) VALUES ('Dany Garcia', 54, 'buisness woman');
+INSERT INTO celebrities (fullname, age, occupation) VALUES ('Kevin Hart', 43, 'actor');
+INSERT INTO celebrities (fullname, age, occupation) VALUES ('Enico Parrish', 38, 'actor');
+INSERT INTO celebrities (fullname, age, occupation) VALUES ('Steven Brand', 53, 'actor');
+
+/* create table for the movies the actors starred in */
+
+CREATE TABLE movies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    star_id INTEGER,
+    movie_name TEXT,
+    genre TEXT);
+
+INSERT INTO movies (star_id, movie_name, genre) VALUES (1, 'Scorpion King', 'Action');
+INSERT INTO movies (star_id, movie_name, genre) VALUES (5, 'Scorpion King', 'Action');
+INSERT INTO movies (star_id, movie_name, genre) VALUES (1, 'Hercules', 'Action');
+INSERT INTO movies (star_id, movie_name, genre) VALUES (3, 'Fatherhood', 'Drama');
+INSERT INTO movies (star_id, movie_name, genre) VALUES (3, 'Let me explain', 'Comedy');
+INSERT INTO movies (star_id, movie_name, genre) VALUES (1, 'Jumanji', 'Adventure');
+INSERT INTO movies (star_id, movie_name, genre) VALUES (3, 'Jumanji', 'Adventure');
+INSERT INTO movies (star_id, movie_name, genre) VALUES (4, 'Celebrity Gameface', 'Comedy');
+INSERT INTO movies (star_id, movie_name, genre) VALUES (3, 'Celebrity Gameface', 'Comedy');
+
+/* create table for the marriages */
+
+CREATE TABLE marriage (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    partner1_id INTEGER,
+    partner2_id INTEGER
+    );
+
+INSERT INTO marriage (partner1_id, partner2_id) VALUES (1, 2);
+INSERT INTO marriage (partner1_id, partner2_id) VALUES (3, 4);
+
+--who married who?
+SELECT c.fullname celebrity, cm.fullname 'married to' FROM marriage m
+    JOIN celebrities c
+    ON m.partner1_id = c.id
+    JOIN celebrities cm
+    ON m.partner2_id = cm.id;
+
+-- who starred in Scorpion King?
+SELECT celebrities.fullname AS 'Scorpion King, starring' FROM celebrities
+    JOIN movies
+    ON movies.star_id = celebrities.id
+    WHERE movie_name = 'Scorpion King';
+    
+-- How many Comedies did Kevin hart star in?
+SELECT celebrities.fullname celebrity, movies.genre, COUNT ( movies.genre ) appearances FROM celebrities
+    JOIN movies
+    ON movies.star_id = celebrities.id
+    WHERE movies.genre = 'Comedy' AND celebrities.id = 3;
+    
+-- how many movies did everyone star in, in descending oreder
+SELECT celebrities.fullname, COUNT ( movies.id) Movies FROM celebrities
+    LEFT OUTER JOIN movies
+    ON movies.star_id = celebrities.id
+    GROUP BY celebrities.fullname
+    ORDER BY Movies DESC;
